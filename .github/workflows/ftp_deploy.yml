@@ -5,14 +5,15 @@ jobs:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.3
-      with:
-        server: ${{secrets.FTP_SERVER}}
-        username: ${{secrets.FTP_USER}}
-        password: ${{secrets.FTP_PASS}}
-        protocol: ftps
-        port: ${{secrets.FTP_PORT}}
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{secrets.FTP_SERVER}}
+          username: ${{secrets.FTP_USER}}
+          password: ${{secrets.FTP_PASS}}
+          protocol: ftps
+          port: ${{secrets.FTP_PORT}}
+          server-dir: /update-mp.srs-ssms.com/
