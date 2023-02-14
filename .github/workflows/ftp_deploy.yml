@@ -16,3 +16,6 @@ jobs:
           password: ${{secrets.FTP_PASS}}
           protocol: ftps
           port: ${{secrets.FTP_PORT}}
+
+      - name : Install Composer and dependencies
+        run : composer install --no-dev --no-interaction --prefer-dist
