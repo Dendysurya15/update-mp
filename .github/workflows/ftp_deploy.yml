@@ -14,15 +14,13 @@ jobs:
           server: ${{secrets.FTP_SERVER}}
           username: ${{secrets.FTP_USER}}
           password: ${{secrets.FTP_PASS}}
-          protocol: ftps
           port: ${{secrets.FTP_PORT}}
 
       - name: Copy ENV Laravel Configuration for CI
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Composer & NPM Dependencies
         run: |
-          composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-          npm install
-          npm run prod
+          composer update
+          composer dump-autoload
       - name: Generate Laravel Application Key
         run: php artisan key:generate
