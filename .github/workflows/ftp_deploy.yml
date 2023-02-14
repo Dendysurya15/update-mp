@@ -16,4 +16,3 @@ jobs:
           password: ${{secrets.FTP_PASS}}
           protocol: ftps
           port: ${{secrets.FTP_PORT}}
-          server-dir: /update-mp.srs-ssms.com/
