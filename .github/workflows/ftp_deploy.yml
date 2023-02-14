@@ -17,5 +17,16 @@ jobs:
           protocol: ftps
           port: ${{secrets.FTP_PORT}}
 
-      - name : Install Composer and dependencies
-        run : composer install --no-dev --no-interaction --prefer-dist
+      - name: Copy ENV Laravel Configuration for CI
+        run: |
+          php -r "file_exists('source/.env') || copy('source/.env.github-actions', 'source/.env');"
+      - name: Install Composer & NPM Dependencies
+        run: |
+          composer install -d source -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          npm install
+          npm run prod
+          {{@if {{$__variables__/LARAVEL_ENV_APP_KEY}} == ''}}
+      - name: Generate Laravel Application Key
+        run: |
+          php artisan key:generate
+          {{@endif}}
